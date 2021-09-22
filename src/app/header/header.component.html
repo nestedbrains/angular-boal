@@ -1,0 +1,6 @@
+<header>
+  <span *ngIf="!userLoginStatus">No User logged</span>
+  <ng-container *ngIf="userLoginStatus">
+    <span>Logged in user}</span>
+    <span>{{username}}</span></ng-container>
+</header>
