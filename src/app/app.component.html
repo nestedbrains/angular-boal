@@ -5,7 +5,7 @@
 
   <div class="content">
     <button *ngIf="!loginUser" (click)="login()">Login</button>
-
+    <div> {{studentAddress  | json}}</div>
 <ng-container *ngIf="loginUser">
   <button (click)="changeName()">Change Name</button>
   <button (click)="logout()">Logout</button>

@@ -25,31 +25,7 @@ export class AppComponent implements OnInit {
     {id: 5, location: "Texas", sid: 3},
   ])
 
-  studentAddress = [
-    {
-      id: 1,
-      name: "Alex",
-      address: [
-        {id: 1, location: "Chicago", sid: 1},
-        {id: 4, location: "California", sid: 1}
-      ]
-    },
-    {
-      id: 2,
-      name: "Jonny",
-      address: [
-        {id: 2, location: "Florida", sid: 2},
-        {id: 3, location: "New York", sid: 2},
-      ]
-    },
-    {
-      id: 3,
-      name: "Marry",
-      address: [
-        {id: 5, location: "Texas", sid: 3},
-      ]
-    },
-  ]
+  studentAddress:any = []
 
   constructor(private _appService: ApplicationService) {
   }
@@ -83,14 +59,19 @@ export class AppComponent implements OnInit {
 
   calculation() {
 
-    combineLatest(
+ combineLatest(
       [this.student$, this.address$],
       (students, address) =>
         students.map((s) => ({
           ...s,
           address: address.filter((a) => a.sid === s.id),
         })) // combineLatest also takes an optional projection function
-    ).subscribe(console.log);
+    ).subscribe(
+      res => {
+
+        this.studentAddress =  res
+      }
+    );
 
   }
 
