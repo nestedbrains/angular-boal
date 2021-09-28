@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject, combineLatest, from, Observable, Subject, zip} from "rxjs";
+import {combineLatest, of} from "rxjs";
 import {ApplicationService} from "./application.service";
-import {filter, map, mergeAll, mergeMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -13,12 +12,12 @@ export class AppComponent implements OnInit {
 
   loginUser = false
 
-  student$ = from([
+  student$ = of([
     {id: 1, name: "Alex"},
     {id: 2, name: "Jonny"},
     {id: 3, name: "Marry"},
   ])
-  address$ = from([
+  address$ = of([
     {id: 1, location: "Chicago", sid: 1},
     {id: 2, location: "Florida", sid: 2},
     {id: 3, location: "New York", sid: 2},
@@ -84,22 +83,15 @@ export class AppComponent implements OnInit {
 
   calculation() {
 
-    combineLatest(this.student$, this.address$).subscribe(studentAddress => {
-      debugger
-      console.log(studentAddress)
-    })
+    combineLatest(
+      [this.student$, this.address$],
+      (students, address) =>
+        students.map((s) => ({
+          ...s,
+          address: address.filter((a) => a.sid === s.id),
+        })) // combineLatest also takes an optional projection function
+    ).subscribe(console.log);
 
   }
-
-  getStudentAddress(student: any) {
-    let data: any = [];
-    return this.address$.pipe(
-      filter(address => address.sid === student.id),
-      map(res => {
-        return res;
-      })
-    );
-  }
-
 
 }
