@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
       (res) => {
         if (res) {
           this.userLoginStatus = true
-          debugger
+
           // @ts-ignore
           this.username = JSON.parse(this._appService.getLocalStorage()).username
         } else {

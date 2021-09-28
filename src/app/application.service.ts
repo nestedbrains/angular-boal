@@ -10,7 +10,7 @@ export class ApplicationService {
 
 
   constructor() {
-    debugger
+
     if (this.getLocalStorage() !== null) {
       this.loginStatus.next(true)
     } else {
@@ -26,8 +26,6 @@ export class ApplicationService {
   getObservableStatus1() {
    this.loginStatus.next(false);
   }
-
-
 
   setLocalStorage() {
     const payload = {
